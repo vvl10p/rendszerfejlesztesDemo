@@ -15,10 +15,11 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Input from '@mui/material/Input';
+import TextField from '@mui/material/TextField';
 import './App.css';
 
 function App() {
-  const [dateValue,setDateValue] = React.useState<Dayjs | null>(dayjs('2024-04-12'));
+  const [dateValue,setDateValue] = React.useState<Dayjs | null>(dayjs('2024-04-13'));
   const [startTimeValue,setStartTimeValue] = React.useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
   const [endTimeValue,setEndTimeValue] = React.useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
   const [carType,setCarType] = React.useState('');
@@ -27,16 +28,23 @@ function App() {
   const [lastName,setLastName] = React.useState('');
   const [email,setEmail] = useState('');
   const [telNumber,setTelNumber] = React.useState('');
+  const [expanded, setExpanded] = React.useState<string | false>('panel1');
+
+  function handleAccordClick(panel:string) {
+    if(expanded === panel) setExpanded("")
+    if(expanded !== panel) setExpanded(panel)
+  }
   const handleChange = (event: SelectChangeEvent) => {setCarType(event.target.value as string)};
 
   return (
     <>
       <div className={'dateWrapper'}>
-        <Accordion defaultExpanded>
+        <Accordion defaultExpanded expanded={expanded === 'panel1'}>
           <AccordionSummary>
             Choose Date
           </AccordionSummary>
           <AccordionDetails>
+            <Box sx={{ minWidth: 120 }}>
             <div className={"calendarContainer"}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DateCalendar', 'DateCalendar']}>
@@ -70,22 +78,48 @@ function App() {
                 </LocalizationProvider>
               </div>
             </div>
+              <div className={'buttonContainer'}>
+                <Button variant={'outlined'} onClick={()=>handleAccordClick('panel2')}>Continue</Button>
+              </div>
+            </Box>
           </AccordionDetails>
         </Accordion>
       </div>
 
 
       <div className={'informationWrapper'}>
-        <Accordion>
+        <Accordion expanded={expanded === 'panel2'}>
           <AccordionSummary>
             Your information
           </AccordionSummary>
           <AccordionDetails>
             <div className={'textInputContainer'}>
-              <Input defaultValue={''} placeholder={"First Name"} required={true} onChange={(event)=>setFirstName(event.target.value)}></Input>
-              <Input defaultValue={''} placeholder={'Last Name'} required={true} onChange={(event)=>setLastName(event.target.value)}></Input>
-              <Input defaultValue={''} placeholder={'example@example.com'} type={'email'} required={true} onChange={(event)=>setEmail(event.target.value)}></Input>
-              <Input defaultValue={''} placeholder={'+123456789'} type={'tel'} required={true} onChange={(event)=>setTelNumber(event.target.value as string)}></Input>
+              <Box
+                  component="form"
+                  sx={{
+                    '& > :not(style)': { minWidth: 120 },
+                  }}
+                  noValidate
+                  autoComplete="off"
+              >
+                <FormControl>
+                  <div className={'textFieldContainer'}>
+                    <TextField id="outlined-basic" label="First Name" variant="outlined" required
+                               onChange={(event) => setFirstName(event.target.value)}/>
+                  </div>
+                  <div className={'textFieldContainer'}><TextField id="outlined-basic" label="Last Name" variant="outlined" required
+                                                                   onChange={(event) => setLastName(event.target.value)}/>
+                  </div>
+                  <div className={'textFieldContainer'}>
+                    <TextField id="outlined-basic" label="Email" variant="outlined" required type="email"
+                               onChange={(event) => setEmail(event.target.value)}/>
+                  </div>
+                  <div className={'textFieldContainer'}>
+                    <TextField id="outlined-basic" label="Phone Number" variant="outlined" required type="tel"
+                               onChange={(event) => setTelNumber(event.target.value)}/>
+                  </div>
+                </FormControl>
+              </Box>
             </div>
             <div className={"dropDownContainer"}>
               <Box sx={{ minWidth: 120 }}>
@@ -102,29 +136,68 @@ function App() {
                     <MenuItem value={'gt3'}>GT3</MenuItem>
                     <MenuItem value={'992'}>992</MenuItem>
                   </Select>
+                  <div className={'textFieldContainer'}>
+                    <TextField type="number" label={"Year of making"} required variant="outlined" onChange={(event)=>setCarYear(event.target.value)}></TextField>
+                  </div>
                 </FormControl>
+                <Button variant='outlined' onClick={()=>handleAccordClick('panel3')}>Continue</Button>
               </Box>
-            </div>
-            <div className={'inputYear'}>
-              <Input type={'year'} defaultValue={''} required={true} onChange={(event) => setCarYear(event.target.value as string)}></Input>
             </div>
           </AccordionDetails>
         </Accordion>
       </div>
 
-      <div>
-        <Accordion>
+      <div className={'summaryWrapper'}>
+        <Accordion expanded={expanded === 'panel3'}>
           <AccordionSummary>
             Summary
           </AccordionSummary>
           <AccordionDetails>
-            <div>
-              <Button onClick={()=>{console.log(dateValue,startTimeValue,endTimeValue,carType,carYear,firstName,lastName,email,telNumber)}}>Confirm</Button>
+            <div className={'summaryTextContainer'}>
+              <label>Date</label>
+              <div className={'summaryTextContainerDate'}>
+                <InputLabel>Date</InputLabel>
+                <Input readOnly value={dayjs(dateValue).format().substring(0, 10)}></Input>
+                <InputLabel>Start of appointment</InputLabel>
+                <Input readOnly
+                       value={dayjs(startTimeValue).toDate().getHours() + ':' + dayjs(startTimeValue).toDate().getMinutes()}></Input>
+                <InputLabel>End of appointment</InputLabel>
+                <Input readOnly
+                       value={dayjs(endTimeValue).toDate().getHours() + ':' + dayjs(endTimeValue).toDate().getMinutes()}></Input>
+              </div>
+              <label>Personal information</label>
+              <div className={'summaryTextContainerPersInf'}>
+                <InputLabel>First name</InputLabel>
+                <Input readOnly value={firstName}></Input>
+                <InputLabel>Last name</InputLabel>
+                <Input readOnly value={lastName}></Input>
+                <InputLabel>Email</InputLabel>
+                <Input readOnly value={email}></Input>
+                <InputLabel>Phone number</InputLabel>
+                <Input readOnly value={telNumber}></Input>
+                <InputLabel>Type of Porsche</InputLabel>
+                <Input readOnly value={carType.toUpperCase()}></Input>
+                <InputLabel>Year of making</InputLabel>
+                <Input readOnly value={carYear}></Input>
+              </div>
+            </div>
+            <div className={'summaryButtonContainer'}>
+              <div className={'summaryButton'}>
+                <Button variant={'outlined'} onClick={() => handleAccordClick('panel1')}>Back to date selection</Button>
+              </div>
+              <div className={'summaryButton'}>
+                <Button variant={'outlined'} onClick={() => handleAccordClick('panel2')}>Back to personal
+                  information</Button>
+              </div>
+              <div className={'summaryButton'}>
+                <Button variant={'contained'} onClick={() => {
+                  console.log(dateValue, startTimeValue, endTimeValue, carType, carYear, firstName, lastName, email, telNumber)
+                }}>Confirm</Button>
+              </div>
             </div>
           </AccordionDetails>
         </Accordion>
       </div>
-
 
       <Accordion>
         <AccordionSummary>
