@@ -16,6 +16,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Input from '@mui/material/Input';
 import TextField from '@mui/material/TextField';
+import Modal from '@mui/material/Modal';
 import './App.css';
 
 function App() {
@@ -34,6 +35,22 @@ function App() {
     if(expanded === panel) setExpanded("")
     if(expanded !== panel) setExpanded(panel)
   }
+
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 800,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
   const handleChange = (event: SelectChangeEvent) => {setCarType(event.target.value as string)};
 
   return (
@@ -190,9 +207,47 @@ function App() {
                   information</Button>
               </div>
               <div className={'summaryButton'}>
-                <Button variant={'contained'} onClick={() => {
-                  console.log(dateValue, startTimeValue, endTimeValue, carType, carYear, firstName, lastName, email, telNumber)
-                }}>Confirm</Button>
+                <Button variant={'contained'} onClick={handleOpenModal}>Confirm</Button>
+                <Modal
+                    open={openModal}
+                    onClose={handleCloseModal}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                  <Box sx={style}>
+                    <h1>Thanks for making an appointment</h1>
+                    <h2>Here is a summary of the details</h2>
+                    <h3>Date of appointment</h3>
+                    <div className={'summaryTextContainerDate'}>
+                      <InputLabel>Date</InputLabel>
+                      <Input readOnly value={dayjs(dateValue).format().substring(0, 10)}></Input>
+                      <InputLabel>Start of appointment</InputLabel>
+                      <Input readOnly
+                             value={dayjs(startTimeValue).toDate().getHours() + ':' + dayjs(startTimeValue).toDate().getMinutes()}></Input>
+                      <InputLabel>End of appointment</InputLabel>
+                      <Input readOnly
+                             value={dayjs(endTimeValue).toDate().getHours() + ':' + dayjs(endTimeValue).toDate().getMinutes()}></Input>
+                    </div>
+                    <h3>Personal information</h3>
+                    <div className={'summaryTextContainerPersInf'}>
+                      <InputLabel>First name</InputLabel>
+                      <Input readOnly value={firstName}></Input>
+                      <InputLabel>Last name</InputLabel>
+                      <Input readOnly value={lastName}></Input>
+                      <InputLabel>Email</InputLabel>
+                      <Input readOnly value={email}></Input>
+                      <InputLabel>Phone number</InputLabel>
+                      <Input readOnly value={telNumber}></Input>
+                      <InputLabel>Type of Porsche</InputLabel>
+                      <Input readOnly value={carType.toUpperCase()}></Input>
+                      <InputLabel>Year of making</InputLabel>
+                      <Input readOnly value={carYear}></Input>
+                      <div className={'modalButton'}>
+                        <Button variant={'contained'} onClick={handleCloseModal}>Close</Button>
+                      </div>
+                    </div>
+                  </Box>
+                </Modal>
               </div>
             </div>
           </AccordionDetails>
@@ -201,11 +256,12 @@ function App() {
 
       <Accordion>
         <AccordionSummary>
-          Google Calendar
+          Google Calendar (Admin only)
         </AccordionSummary>
         <AccordionDetails>
           <div className={"googleCalendarContainer"}>
-            <iframe title={""} className={"googleCalendar"} src={"https://calendar.google.com/calendar/embed?src=maruszki.levente%40gmail.com&ctz=Europe%2FBudapest"}></iframe>
+            <iframe title={""} className={"googleCalendar"}
+                    src={"https://calendar.google.com/calendar/embed?src=maruszki.levente%40gmail.com&ctz=Europe%2FBudapest"}></iframe>
           </div>
         </AccordionDetails>
       </Accordion>

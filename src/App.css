@@ -69,3 +69,12 @@
   padding:0.3rem;
   margin:0.3rem;
 }
+
+h1{
+  text-align: center;
+}
+
+.modalButton{
+  display: block;
+  float:right;
+}
