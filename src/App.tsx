@@ -174,28 +174,28 @@ function App() {
               <label>Date</label>
               <div className={'summaryTextContainerDate'}>
                 <InputLabel>Date</InputLabel>
-                <Input readOnly value={dayjs(dateValue).format().substring(0, 10)}></Input>
+                <Input readOnly disableUnderline value={dayjs(dateValue).format().substring(0, 10)}></Input>
                 <InputLabel>Start of appointment</InputLabel>
-                <Input readOnly
+                <Input readOnly disableUnderline
                        value={dayjs(startTimeValue).toDate().getHours() + ':' + dayjs(startTimeValue).toDate().getMinutes()}></Input>
                 <InputLabel>End of appointment</InputLabel>
-                <Input readOnly
+                <Input readOnly disableUnderline
                        value={dayjs(endTimeValue).toDate().getHours() + ':' + dayjs(endTimeValue).toDate().getMinutes()}></Input>
               </div>
               <label>Personal information</label>
               <div className={'summaryTextContainerPersInf'}>
                 <InputLabel>First name</InputLabel>
-                <Input readOnly value={firstName}></Input>
+                <Input readOnly disableUnderline value={firstName}></Input>
                 <InputLabel>Last name</InputLabel>
-                <Input readOnly value={lastName}></Input>
+                <Input readOnly disableUnderline value={lastName}></Input>
                 <InputLabel>Email</InputLabel>
-                <Input readOnly value={email}></Input>
+                <Input readOnly disableUnderline value={email}></Input>
                 <InputLabel>Phone number</InputLabel>
-                <Input readOnly value={telNumber}></Input>
+                <Input readOnly disableUnderline value={telNumber}></Input>
                 <InputLabel>Type of Porsche</InputLabel>
-                <Input readOnly value={carType.toUpperCase()}></Input>
+                <Input readOnly disableUnderline value={carType.toUpperCase()}></Input>
                 <InputLabel>Year of making</InputLabel>
-                <Input readOnly value={carYear}></Input>
+                <Input readOnly disableUnderline value={carYear}></Input>
               </div>
             </div>
             <div className={'summaryButtonContainer'}>
@@ -220,28 +220,28 @@ function App() {
                     <h3>Date of appointment</h3>
                     <div className={'summaryTextContainerDate'}>
                       <InputLabel>Date</InputLabel>
-                      <Input readOnly value={dayjs(dateValue).format().substring(0, 10)}></Input>
+                      <Input readOnly disableUnderline value={dayjs(dateValue).format().substring(0, 10)}></Input>
                       <InputLabel>Start of appointment</InputLabel>
-                      <Input readOnly
+                      <Input readOnly disableUnderline
                              value={dayjs(startTimeValue).toDate().getHours() + ':' + dayjs(startTimeValue).toDate().getMinutes()}></Input>
                       <InputLabel>End of appointment</InputLabel>
-                      <Input readOnly
+                      <Input readOnly disableUnderline
                              value={dayjs(endTimeValue).toDate().getHours() + ':' + dayjs(endTimeValue).toDate().getMinutes()}></Input>
                     </div>
                     <h3>Personal information</h3>
                     <div className={'summaryTextContainerPersInf'}>
                       <InputLabel>First name</InputLabel>
-                      <Input readOnly value={firstName}></Input>
+                      <Input readOnly disableUnderline value={firstName}></Input>
                       <InputLabel>Last name</InputLabel>
-                      <Input readOnly value={lastName}></Input>
+                      <Input readOnly disableUnderline value={lastName}></Input>
                       <InputLabel>Email</InputLabel>
-                      <Input readOnly value={email}></Input>
+                      <Input readOnly disableUnderline value={email}></Input>
                       <InputLabel>Phone number</InputLabel>
-                      <Input readOnly value={telNumber}></Input>
+                      <Input readOnly disableUnderline value={telNumber}></Input>
                       <InputLabel>Type of Porsche</InputLabel>
-                      <Input readOnly value={carType.toUpperCase()}></Input>
+                      <Input readOnly disableUnderline value={carType.toUpperCase()}></Input>
                       <InputLabel>Year of making</InputLabel>
-                      <Input readOnly value={carYear}></Input>
+                      <Input readOnly disableUnderline value={carYear}></Input>
                       <div className={'modalButton'}>
                         <Button variant={'contained'} onClick={handleCloseModal}>Close</Button>
                       </div>
