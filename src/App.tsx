@@ -51,6 +51,12 @@ function App() {
     p: 4,
   };
 
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ firstName: firstName,lastName: lastName, dateValue: dayjs(dateValue).format().substring(0, 10), startTimeValue: dayjs(startTimeValue).toDate().getHours() as unknown as string +''+ dayjs(startTimeValue).toDate().getMinutes() as string, endTimeValue: dayjs(endTimeValue).toDate().getHours() +''+ dayjs(endTimeValue).toDate().getMinutes(), carType: carType, carYear:carYear, email:email, telNumber:telNumber }),
+  };
+
   const handleChange = (event: SelectChangeEvent) => {setCarType(event.target.value as string)};
 
   return (
@@ -207,7 +213,8 @@ function App() {
                   information</Button>
               </div>
               <div className={'summaryButton'}>
-                <Button variant={'contained'} onClick={handleOpenModal}>Confirm</Button>
+                <Button variant={'contained'} onClick={()=>{handleOpenModal();fetch('http://localhost:3001/', requestOptions)
+                    .then(response => response.json())}}>Confirm</Button>
                 <Modal
                     open={openModal}
                     onClose={handleCloseModal}
@@ -261,7 +268,8 @@ function App() {
         <AccordionDetails>
           <div className={"googleCalendarContainer"}>
             <iframe title={""} className={"googleCalendar"}
-                    src={"https://calendar.google.com/calendar/embed?src=maruszki.levente%40gmail.com&ctz=Europe%2FBudapest"}></iframe>
+                    src={"https://calendar.google.com/calendar/embed?src=maruszki.levente%40gmail.com&ctz=Europe%2FBudapest"}>
+            </iframe>
           </div>
         </AccordionDetails>
       </Accordion>
