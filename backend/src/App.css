@@ -1,0 +1,80 @@
+.calendarContainer{
+  margin-left: 1rem;
+}
+
+.timePickerContainer{
+  display: inline-block;
+  overflow: hidden;
+}
+
+.timePicker{
+  display: inline-block;
+  padding-left: 1rem;
+}
+
+.dropDownContainer{
+  display:block;
+  width: 50%;
+  margin:1rem;
+}
+
+.googleCalendar{
+  border: 0;
+  width:800px;
+  height:600px;
+  frameBorder:0;
+  scrolling:no;
+}
+
+.googleCalendarContainer{
+  margin:1rem;
+}
+
+.buttonContainer{
+  margin:1rem;
+}
+
+.textInputContainer{
+  flex-grow: 1;
+  display:flex;
+  flex-direction: column;
+  margin:1rem;
+}
+
+.textFieldContainer{
+  flex-grow: 1;
+  display:flex;
+  flex-direction: column;
+  padding:1rem 0;
+}
+
+.buttonContainer{
+  display: block;
+}
+
+.summaryButtonContainer{
+  display: flex;
+}
+
+.summaryButton{
+  margin:0.3rem;
+}
+
+.summaryTextContainerDate{
+  padding:0.3rem;
+  margin:0.3rem;
+}
+
+.summaryTextContainerPersInf{
+  padding:0.3rem;
+  margin:0.3rem;
+}
+
+h1{
+  text-align: center;
+}
+
+.modalButton{
+  display: block;
+  float:right;
+}
